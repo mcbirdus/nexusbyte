@@ -144,7 +144,7 @@ export default function About() {
                     "Caringbah",
                     "Engadine",
                     "Castle Hill",
-                    "Rouse Hill"
+                    "Rouse Hill",
                     "Richmond",
                     "Blacktown",
                     "Mount Druitt",
