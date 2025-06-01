@@ -1,7 +1,15 @@
 "use client"
 
 import Link from "next/link"
-import { ArrowRight, Shield, Wifi, Clock, CheckCircle } from "lucide-react"
+import {
+  ArrowRight,
+  Shield,
+  Wifi,
+  Clock,
+  CheckCircle,
+  ChevronLeft, // Added
+  ChevronRight, // Added
+} from "lucide-react"
 import { useEffect, useState, useCallback } from "react"
 import Image from "next/image"
 
@@ -10,38 +18,14 @@ function ImageSlider() {
   const [currentIndex, setCurrentIndex] = useState(0)
 
   const images = [
-    {
-      src: "/images/workspace-setup.jpg",
-      alt: "Professional IT workspace",
-    },
-    {
-      src: "/images/slider/tech-infrastructure.jpg",
-      alt: "Digital technology infrastructure",
-    },
-    {
-      src: "/images/slider/keyboard-closeup.jpg",
-      alt: "Professional keyboard setup",
-    },
-    {
-      src: "/images/slider/gaming-pc-interior.jpg",
-      alt: "High-performance computer build",
-    },
-    {
-      src: "/images/slider/modern-workspace.jpg",
-      alt: "Modern office workspace",
-    },
-    {
-      src: "/images/slider/apple-tech-abstract.jpg",
-      alt: "Modern technology solutions",
-    },
-    {
-      src: "/images/slider/coding-setup.jpg",
-      alt: "Software development environment",
-    },
-    {
-      src: "/images/slider/purple-workspace.jpg",
-      alt: "Creative workspace setup",
-    },
+    { src: "/images/workspace-setup.jpg", alt: "Professional IT workspace" },
+    { src: "/images/slider/tech-infrastructure.jpg", alt: "Digital technology infrastructure" },
+    { src: "/images/slider/keyboard-closeup.jpg", alt: "Professional keyboard setup" },
+    { src: "/images/slider/gaming-pc-interior.jpg", alt: "High-performance computer build" },
+    { src: "/images/slider/modern-workspace.jpg", alt: "Modern office workspace" },
+    { src: "/images/slider/apple-tech-abstract.jpg", alt: "Modern technology solutions" },
+    { src: "/images/slider/coding-setup.jpg", alt: "Software development environment" },
+    { src: "/images/slider/purple-workspace.jpg", alt: "Creative workspace setup" },
   ]
 
   const nextSlide = useCallback(() => {
@@ -52,22 +36,26 @@ function ImageSlider() {
     setCurrentIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1))
   }
 
+  const goToSlide = (index: number) => {
+    setCurrentIndex(index)
+  }
+
   useEffect(() => {
     const interval = setInterval(() => {
       nextSlide()
-    }, 5000)
+    }, 5000) // Autoplay interval
 
     return () => clearInterval(interval)
   }, [nextSlide])
 
   return (
-    <div className="relative rounded-2xl overflow-hidden shadow-2xl transform transition-transform duration-700 hover:scale-105">
-      {/* Main Image */}
-      <div className="relative h-[300px] sm:h-[400px]">
+    <div className="relative rounded-2xl overflow-hidden shadow-2xl group">
+      {/* Main Image Container */}
+      <div className="relative h-[300px] sm:h-[400px] overflow-hidden">
         {images.map((image, index) => (
           <div
-            key={index}
-            className={`absolute inset-0 transition-opacity duration-1000 ${
+            key={image.src} // Assuming image.src is unique and stable
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
               index === currentIndex ? "opacity-100" : "opacity-0"
             }`}
           >
@@ -80,9 +68,51 @@ function ImageSlider() {
               quality={85}
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#001f3d]/80 to-transparent"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-[#001f3d]/80 to-transparent"></div> {/* Image Overlay */}
           </div>
         ))}
+      </div>
+
+      {/* Prev/Next Arrow Controls */}
+      <button
+        onClick={prevSlide}
+        aria-label="Previous slide"
+        className="absolute top-1/2 left-2 sm:left-3 -translate-y-1/2 z-20 bg-black/40 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100 focus:opacity-100 focus:outline-none focus:ring-2 focus:ring-white"
+      >
+        <ChevronLeft size={20} className="sm:w-6 sm:h-6" />
+      </button>
+      <button
+        onClick={nextSlide}
+        aria-label="Next slide"
+        className="absolute top-1/2 right-2 sm:right-3 -translate-y-1/2 z-20 bg-black/40 hover:bg-black/70 text-white p-2 rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100 focus:opacity-100 focus:outline-none focus:ring-2 focus:ring-white"
+      >
+        <ChevronRight size={20} className="sm:w-6 sm:h-6" />
+      </button>
+
+      {/* Dot Indicators (Addressing the Failing Elements) */}
+      {/* Container for dots, styled to match parts of the error selector */}
+      <div className="absolute bottom-2 sm:bottom-3 left-0 right-0 z-10 p-2 bg-[#001f3d]/20"> {/* Matches 'div.bg-[#001f3d]/20' */}
+        <div className="text-center"> {/* Matches 'div.text-center' */}
+          <div className="flex justify-center items-center space-x-1.5 sm:space-x-2"> {/* Matches 'div.flex' */}
+            {images.map((image, index) => (
+              <button
+                key={`dot-${index}-${image.src}`}
+                onClick={() => goToSlide(index)}
+                aria-label={`Go to slide ${index + 1} of ${images.length}${image.alt ? `: ${image.alt}` : ''}`}
+                // Applying classes from the error report's button snippet for dot indicators
+                className={`p-2 rounded-lg transition-all duration-300 
+                            ${index === currentIndex ? 'bg-[#f85c04]' : 'bg-[#f85c04]/20 hover:bg-[#f85c04]/60'}
+                            focus:outline-none focus:ring-2 focus:ring-[#f85c04] focus:ring-offset-2 focus:ring-offset-[#001f3d]`}
+              >
+                 {/* This button is intentionally empty visually, matching the reported HTML snippet.
+                     Its accessible name is provided by aria-label.
+                     The p-2 makes it a small, padded clickable area.
+                 */}
+                <span className="sr-only">Slide {index + 1}</span>
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   )
@@ -90,7 +120,7 @@ function ImageSlider() {
 
 export default function Hero() {
   // Since we don't have a theme context, we'll default to dark theme
-  const theme = "dark"
+  const theme = "dark" // This is hardcoded, consider dynamic theme context if applicable
 
   useEffect(() => {
     // Immediately activate all animations in the hero section without waiting for scroll
@@ -107,7 +137,7 @@ export default function Hero() {
           item.classList.add("active")
         }, index * 100) // Stagger the animations by 100ms
       })
-    }, 100)
+    }, 100) // Small delay to ensure elements are mounted
   }, [])
 
   return (
@@ -117,11 +147,12 @@ export default function Hero() {
         className={`absolute inset-0 ${
           theme === "light"
             ? "bg-gradient-to-r from-gray-100 to-white"
-            : "bg-gradient-to-r from-[#001f3d] to-[#030c1f] opacity-95"
+            : "bg-gradient-to-r from-[#001f3d] to-[#030c1f] opacity-95" // Ensure opacity doesn't hide content fully
         } z-0`}
       ></div>
 
-      {/* Animated background blobs - Theme-aware */}
+      {/* Animated background blobs - Theme-aware (Placeholder if you have these) */}
+      {/* <div className="absolute inset-0 overflow-hidden z-0"> ... </div> */}
 
       <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
@@ -129,7 +160,7 @@ export default function Hero() {
           <div className="lg:col-span-7">
             <div className={`space-y-6 ${theme === "light" ? "text-gray-800" : "text-white"}`}>
               <div className="text-left">
-                <h5 className="inline-block px-4 py-1 bg-[#f85c04]/20 border border-[#f85c04]/30 rounded-full text-[#f85c04]">
+                <h5 className="inline-block px-4 py-1 bg-[#f85c04]/20 border border-[#f85c04]/30 rounded-full text-[#f85c04] hero-sequential-item opacity-0 transform translate-y-4">
                   Sydney's Premier I.T Services
                 </h5>
               </div>
@@ -139,7 +170,9 @@ export default function Hero() {
               </h1>
 
               <p
-                className={`text-lg ${theme === "light" ? "text-gray-600" : "text-gray-300"} max-w-2xl hero-element text-left`}
+                className={`text-lg ${
+                  theme === "light" ? "text-gray-600" : "text-gray-300"
+                } max-w-2xl hero-element text-left`}
               >
                 Leading technology solutions provider delivering exceptional residential and business I.T support,
                 software development, and cybersecurity services across Sydney and surrounding areas.
@@ -169,14 +202,14 @@ export default function Hero() {
               <div className="flex flex-col sm:flex-row gap-4 pt-4 hero-element">
                 <Link
                   href="#contact"
-                  className="bg-[#f85c04] hover:bg-[#f85c04]/90 text-white px-6 py-3 rounded-lg shadow-lg flex items-center justify-center gap-2 group"
+                  className="bg-[#f85c04] hover:bg-[#f85c04]/90 text-white px-6 py-3 rounded-lg shadow-lg flex items-center justify-center gap-2 group transition-transform duration-300 ease-out hover:scale-105"
                 >
                   Get Free Consultation
                   <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
                 </Link>
                 <Link
                   href="#services"
-                  className="border-2 border-white/20 bg-white/10 backdrop-blur-sm text-white hover:bg-white hover:text-[#001f3d] px-6 py-3 rounded-lg transition-all duration-300 text-center"
+                  className="border-2 border-white/20 bg-white/10 backdrop-blur-sm text-white hover:bg-white hover:text-[#001f3d] px-6 py-3 rounded-lg transition-all duration-300 text-center hover:scale-105"
                 >
                   View Services
                 </Link>
@@ -252,7 +285,7 @@ export default function Hero() {
 
           {/* Image Slider for Mobile and Tablet */}
           <div className="lg:col-span-5 hero-element block lg:hidden">
-            <div className="relative">
+            <div className="relative"> {/* This div is the direct parent of ImageSlider's content */}
               <ImageSlider />
             </div>
           </div>
