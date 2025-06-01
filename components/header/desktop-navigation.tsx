@@ -44,7 +44,7 @@ export default function DesktopNavigation({ toggleSubmenu }: DesktopNavigationPr
           <ChevronDown size={16} className="transition-transform duration-300 group-hover:rotate-180" />
         </button>
 
-        <div className="absolute left-0 mt-2 w-64 bg-white dark:bg-[#001f3d] rounded-md shadow-lg overflow-hidden transform origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-300 z-50">
+        <div className="absolute left-0 mt-2 w-80 bg-white dark:bg-[#001f3d] rounded-md shadow-lg overflow-hidden transform origin-top scale-y-0 group-hover:scale-y-100 transition-transform duration-300 z-50">
           <div className="p-4">
             <Link
               href="/services/business"
@@ -62,6 +62,46 @@ export default function DesktopNavigation({ toggleSubmenu }: DesktopNavigationPr
             >
               <span>Home I.T Services</span>
             </Link>
+            <Link
+              href="/services/software-development"
+              className={`block py-2 px-3 hover:bg-gray-100 dark:hover:bg-[#001f3d]/60 rounded-md transition-colors duration-300 relative ${
+                pathname === "/services/software-development"
+                  ? "bg-gray-100 dark:bg-[#001f3d]/60 text-[#f85c04] font-medium"
+                  : ""
+              }`}
+            >
+              <span>Software Development</span>
+            </Link>
+            <Link
+              href="/services/computer-repairs"
+              className={`block py-2 px-3 hover:bg-gray-100 dark:hover:bg-[#001f3d]/60 rounded-md transition-colors duration-300 relative ${
+                pathname === "/services/computer-repairs"
+                  ? "bg-gray-100 dark:bg-[#001f3d]/60 text-[#f85c04] font-medium"
+                  : ""
+              }`}
+            >
+              <span>Computer Repairs</span>
+            </Link>
+            <Link
+              href="/services/networking-cybersecurity"
+              className={`block py-2 px-3 hover:bg-gray-100 dark:hover:bg-[#001f3d]/60 rounded-md transition-colors duration-300 relative ${
+                pathname === "/services/networking-cybersecurity"
+                  ? "bg-gray-100 dark:bg-[#001f3d]/60 text-[#f85c04] font-medium"
+                  : ""
+              }`}
+            >
+              <span>Networking & Cybersecurity</span>
+            </Link>
+            <Link
+              href="/services/data-management"
+              className={`block py-2 px-3 hover:bg-gray-100 dark:hover:bg-[#001f3d]/60 rounded-md transition-colors duration-300 relative ${
+                pathname === "/services/data-management"
+                  ? "bg-gray-100 dark:bg-[#001f3d]/60 text-[#f85c04] font-medium"
+                  : ""
+              }`}
+            >
+              <span>Data Management & Recovery</span>
+            </Link>
           </div>
         </div>
       </div>
@@ -75,6 +115,17 @@ export default function DesktopNavigation({ toggleSubmenu }: DesktopNavigationPr
         }`}
       >
         Blog
+      </Link>
+
+      <Link
+        href="/faq"
+        className={`text-${
+          isExactPathActive("/faq") ? "[#f85c04]" : "white"
+        } hover:text-[#f85c04] transition-colors duration-300 relative py-2 ${
+          isExactPathActive("/faq") ? "font-medium" : ""
+        }`}
+      >
+        FAQ
       </Link>
 
       <Link

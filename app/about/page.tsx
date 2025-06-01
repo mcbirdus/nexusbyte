@@ -4,7 +4,6 @@ import Footer from "@/components/footer"
 import { Card, CardContent } from "@/components/ui/card"
 import { CheckCircle, Users, Award, Clock, Shield, Target, Heart, Lightbulb } from "lucide-react"
 import Image from "next/image"
-import { Home } from "lucide-react"
 
 export default function AboutPage() {
   return (
@@ -18,17 +17,6 @@ export default function AboutPage() {
 
           {/* New Hero Content */}
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-            <nav className="mb-8 text-gray-300">
-              <div className="flex items-center space-x-2">
-                <a href="/" className="hover:text-[#f85c04] transition-colors duration-300 flex items-center">
-                  <Home className="w-4 h-4 mr-1" />
-                  Home
-                </a>
-                <span>›</span>
-                <span className="text-white">About Us</span>
-              </div>
-            </nav>
-
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
               {/* Left Side Content */}
               <div className="text-white">
@@ -55,39 +43,6 @@ export default function AboutPage() {
                 <div className="absolute top-1/4 left-1/4 bg-[#f85c04] rounded-full w-8 h-8 animate-pulse opacity-75"></div>
                 <div className="absolute bottom-1/4 right-1/4 bg-[#f85c04] rounded-full w-6 h-6 animate-pulse opacity-50"></div>
               </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Location Information Section */}
-        <section className="relative py-12 bg-gradient-to-r from-[#001f3d] to-black">
-          <div className="absolute inset-0 bg-[url('/placeholder.svg?height=1080&width=1920')] opacity-5"></div>
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-white">
-            {/* Phone */}
-            <div className="flex flex-col items-center justify-center p-4 rounded-lg shadow-md bg-white/5 border-white/10 backdrop-blur-sm">
-              <a href="tel:+61414082893" className="text-lg hover:text-[#f85c04] transition-colors duration-300">
-                Phone: (02) 8123 4567
-              </a>
-            </div>
-
-            {/* Email */}
-            <div className="flex flex-col items-center justify-center p-4 rounded-lg shadow-md bg-white/5 border-white/10 backdrop-blur-sm">
-              <a
-                href="mailto:info@nexusbyte.com.au"
-                className="text-lg hover:text-[#f85c04] transition-colors duration-300"
-              >
-                Email: info@nexusbyte.com.au
-              </a>
-            </div>
-
-            {/* Address */}
-            <div className="flex flex-col items-center justify-center p-4 rounded-lg shadow-md bg-white/5 border-white/10 backdrop-blur-sm">
-              <div className="text-center">Address: 123 Main Street, Sydney, NSW 2000, Australia</div>
-            </div>
-
-            {/* Business Hours */}
-            <div className="flex flex-col items-center justify-center p-4 rounded-lg shadow-md bg-white/5 border-white/10 backdrop-blur-sm">
-              <div className="text-center">Business Hours: Mon-Fri, 9am-5pm</div>
             </div>
           </div>
         </section>

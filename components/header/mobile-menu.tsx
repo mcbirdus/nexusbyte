@@ -135,6 +135,18 @@ export default function MobileMenu({
         </Link>
 
         <Link
+          href="/faq"
+          onClick={() => setIsMobileMenuOpen(false)}
+          className={`text-${
+            isExactPathActive("/faq") ? "[#f85c04]" : "white"
+          } py-3 px-5 rounded-lg hover:bg-white/10 transition-colors duration-300 text-xl relative ${
+            isExactPathActive("/faq") ? "font-semibold" : ""
+          }`}
+        >
+          FAQ
+        </Link>
+
+        <Link
           href="/about"
           onClick={() => setIsMobileMenuOpen(false)}
           className={`text-${
