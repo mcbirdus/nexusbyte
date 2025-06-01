@@ -6,6 +6,8 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
+import type React from "react"
+import { useState } from "react"
 
 export const metadata: Metadata = {
   title: "Blog Post - NexusByte Tech Insights",
