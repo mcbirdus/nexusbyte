@@ -13,6 +13,12 @@ import { useEffect } from "react"
 import { submitConsultation } from "@/actions/submit-consultation"
 import type { ConsultationFormData } from "@/actions/submit-consultation"
 
+declare global {
+  interface Window {
+    google: any
+  }
+}
+
 export default function CTASection() {
   const [formData, setFormData] = useState<ConsultationFormData>({
     firstName: "",
@@ -32,8 +38,40 @@ export default function CTASection() {
     setSubmitStatus(null)
 
     try {
+      // Validate form data on client side first
+      if (
+        !formData.firstName.trim() ||
+        !formData.lastName.trim() ||
+        !formData.email.trim() ||
+        !formData.phone.trim() ||
+        !formData.address.trim() ||
+        !formData.message.trim()
+      ) {
+        setSubmitStatus({
+          success: false,
+          message: "Please fill in all required fields.",
+        })
+        setIsSubmitting(false)
+        return
+      }
+
+      // Validate email format
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+      if (!emailRegex.test(formData.email.trim())) {
+        setSubmitStatus({
+          success: false,
+          message: "Please enter a valid email address.",
+        })
+        setIsSubmitting(false)
+        return
+      }
+
+      console.log("Submitting form data:", formData)
+
       // Call the server action to submit the form
       const result = await submitConsultation(formData)
+
+      console.log("Server response:", result)
 
       setSubmitStatus(result)
 
@@ -86,20 +124,6 @@ export default function CTASection() {
       handleScroll()
     }, 100)
 
-    // Load Google Maps iframe
-    const addressFrame = document.getElementById("address-selection-frame")
-    if (addressFrame) {
-      addressFrame.addEventListener("load", () => {
-        // Listen for messages from the iframe
-        window.addEventListener("message", (event) => {
-          // Check if the message is from the Google Maps iframe
-          if (event.data && event.data.address) {
-            handleChange("address", event.data.address)
-          }
-        })
-      })
-    }
-
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
@@ -113,11 +137,11 @@ export default function CTASection() {
           {/* Left Column - CTA Content */}
           <div className="text-white">
             <h2 className="text-3xl md:text-4xl font-bold mb-6 reveal fade-right">
-              Ready to Transform Your <span className="text-[#f85c04]">I.T. Experience</span>?
+              Ready to Transform Your <span className="text-[#f85c04]">I.T Experience</span>?
             </h2>
 
             <p className="text-gray-300 mb-8 text-lg">
-              Whether you're a business looking to optimize your I.T. infrastructure or a homeowner seeking better
+              Whether you're a business looking to optimize your I.T infrastructure or a homeowner seeking better
               technology solutions, our team is ready to help. Contact us today for a free consultation and discover how
               NexusByte can elevate your technology experience.
             </p>
@@ -176,7 +200,7 @@ export default function CTASection() {
             <div className="absolute -top-6 -right-6 animate-pulse">
               <div className="relative">
                 <div className="absolute inset-0 bg-[#f85c04] rounded-full blur-md opacity-50 animate-ping"></div>
-                <div className="relative bg-gradient-to-r from-[#f85c04] to-[#ff7a1a] text-white p-4 rounded-full shadow-lg border-2 border-white/30 flex items-center justify-center transform rotate-12">
+                <div className="relative bg-gradient-to-r from-[#f85c04] to-[#ff7a1a] text-white p-2 rounded-full shadow-lg border-2 border-white/30 flex items-center justify-center">
                   <Sparkles className="w-5 h-5 mr-1 animate-spin-slow" />
                   <span className="font-bold text-sm">FREE QUOTE</span>
                 </div>
@@ -186,16 +210,6 @@ export default function CTASection() {
             <h3 className="text-2xl font-bold text-white mb-6">
               Get a <span className="text-[#f85c04]">Free</span> Consultation
             </h3>
-
-            {submitStatus && (
-              <div
-                className={`p-4 mb-6 rounded-lg ${submitStatus.success ? "bg-green-500/20 border border-green-500/50" : "bg-red-500/20 border border-red-500/50"}`}
-              >
-                <p className={`text-sm ${submitStatus.success ? "text-green-300" : "text-red-300"}`}>
-                  {submitStatus.message}
-                </p>
-              </div>
-            )}
 
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -261,24 +275,57 @@ export default function CTASection() {
                 <Label htmlFor="address" className="text-white font-semibold">
                   Address *
                 </Label>
-                <div className="bg-white/10 border border-white/20 rounded-md overflow-hidden h-[200px]">
-                  <iframe
-                    id="address-selection-frame"
-                    src="https://storage.googleapis.com/maps-solutions-13kt69xs4f/address-selection/bouf/address-selection.html"
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    loading="lazy"
-                    title="Google Maps Address Selection"
-                  ></iframe>
-                </div>
                 <Input
                   id="address"
                   value={formData.address}
                   onChange={(e) => handleChange("address", e.target.value)}
-                  className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-[#f85c04] focus:ring-[#f85c04] mt-2"
-                  placeholder="Selected address will appear here"
+                  className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-[#f85c04] focus:ring-[#f85c04]"
+                  placeholder="Start typing your address..."
                   required
+                  ref={(input) => {
+                    // Initialize Google Places Autocomplete when the input is rendered
+                    if (input && !input.getAttribute("data-places-initialized")) {
+                      input.setAttribute("data-places-initialized", "true")
+
+                      // Load Google Maps API script if not already loaded
+                      if (!document.getElementById("google-maps-script")) {
+                        const script = document.createElement("script")
+                        script.id = "google-maps-script"
+                        script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyDj6fNWwcEAh2i7wFfPksV6_fOorxpzyXQ&libraries=places`
+                        script.async = true
+                        script.defer = true
+                        script.onload = () => {
+                          // Initialize autocomplete after script loads
+                          const autocomplete = new window.google.maps.places.Autocomplete(input, {
+                            types: ["address"],
+                            componentRestrictions: { country: "au" }, // Restrict to Australia
+                          })
+
+                          // Update form data when a place is selected
+                          autocomplete.addListener("place_changed", () => {
+                            const place = autocomplete.getPlace()
+                            if (place.formatted_address) {
+                              handleChange("address", place.formatted_address)
+                            }
+                          })
+                        }
+                        document.head.appendChild(script)
+                      } else {
+                        // If script already loaded, initialize autocomplete directly
+                        const autocomplete = new window.google.maps.places.Autocomplete(input, {
+                          types: ["address"],
+                          componentRestrictions: { country: "au" }, // Restrict to Australia
+                        })
+
+                        autocomplete.addListener("place_changed", () => {
+                          const place = autocomplete.getPlace()
+                          if (place.formatted_address) {
+                            handleChange("address", place.formatted_address)
+                          }
+                        })
+                      }
+                    }
+                  }}
                 />
               </div>
 
@@ -313,7 +360,7 @@ export default function CTASection() {
                   value={formData.message}
                   onChange={(e) => handleChange("message", e.target.value)}
                   className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-[#f85c04] focus:ring-[#f85c04] min-h-[120px]"
-                  placeholder="Tell us about your I.T. needs and how we can help..."
+                  placeholder="Tell us about your I.T needs and how we can help..."
                   required
                 />
               </div>
@@ -326,6 +373,17 @@ export default function CTASection() {
               >
                 {isSubmitting ? "Submitting..." : "Send Message"}
               </Button>
+              {submitStatus && (
+                <div
+                  className={`p-4 mt-6 rounded-lg ${submitStatus.success ? "bg-green-500/20 border border-green-500/50" : "bg-red-500/20 border border-red-500/50"}`}
+                >
+                  <p className={`text-sm ${submitStatus.success ? "text-green-300" : "text-red-300"}`}>
+                    {submitStatus.success
+                      ? "Thank you! Your consultation request has been submitted successfully. We'll contact you within 30 minutes."
+                      : submitStatus.message}
+                  </p>
+                </div>
+              )}
             </form>
           </div>
         </div>

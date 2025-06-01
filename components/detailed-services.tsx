@@ -1,13 +1,12 @@
 "use client"
 
 import { useEffect } from "react"
-import Image from "next/image"
 
 export default function DetailedServices() {
   const services = [
     {
       icon: "/icons/pc-tower.webp",
-      title: "Apple Mac Computer Repair Sydney",
+      title: "Apple Mac Computer Repairs",
       description:
         "Professional Apple Mac repair services in Sydney. Our certified technicians provide fast, reliable Mac computer repairs and support for all Apple devices:",
       features: [
@@ -21,7 +20,7 @@ export default function DetailedServices() {
     },
     {
       icon: "/icons/pc-tower.webp",
-      title: "Computer Repair Services Sydney",
+      title: "Computer Repair Services",
       description:
         "Expert computer and laptop repair services in Sydney. We fix all computer issues quickly and affordably, getting your devices back to optimal performance:",
       features: [
@@ -35,7 +34,7 @@ export default function DetailedServices() {
     },
     {
       icon: "/icons/hand-touching-tablet-screen.webp",
-      title: "iPad and Tablet Repair Sydney",
+      title: "iPad and Tablet Repair",
       description:
         "Professional iPad and tablet repair services in Sydney. We service all major brands including Apple iPad, Samsung Galaxy tablets, and other Android devices:",
       features: [
@@ -49,7 +48,7 @@ export default function DetailedServices() {
     },
     {
       icon: "/icons/privacy.webp",
-      title: "Data Backup and Recovery Sydney",
+      title: "Data Backup and Recovery",
       description:
         "Comprehensive data backup and recovery services in Sydney. Protect your valuable business and personal data with our professional backup solutions:",
       features: [
@@ -63,7 +62,7 @@ export default function DetailedServices() {
     },
     {
       icon: "/icons/printing.webp",
-      title: "Printer Setup and Repair Sydney",
+      title: "Printer Setup and Repair",
       description:
         "Professional printer and scanner setup services in Sydney. We install, configure, and repair all printer brands for home and business use:",
       features: [
@@ -77,7 +76,7 @@ export default function DetailedServices() {
     },
     {
       icon: "/icons/privacy.webp",
-      title: "Cybersecurity Services Sydney",
+      title: "Cybersecurity Services",
       description:
         "Advanced cybersecurity and privacy protection services in Sydney. Secure your devices and networks from cyber threats with our expert security solutions:",
       features: [
@@ -91,7 +90,7 @@ export default function DetailedServices() {
     },
     {
       icon: "/icons/speedometer.webp",
-      title: "WiFi Network Setup Sydney",
+      title: "WiFi Network Setup",
       description:
         "Professional WiFi and networking services in Sydney. Get fast, reliable internet connectivity for your home or business with our expert network solutions:",
       features: [
@@ -105,7 +104,7 @@ export default function DetailedServices() {
     },
     {
       icon: "/icons/social-media.webp",
-      title: "Photo and Media Management Sydney",
+      title: "Photo and Media Management",
       description:
         "Professional photo and media management services in Sydney. Organize, backup, and share your digital memories safely across all your devices:",
       features: [
@@ -119,7 +118,7 @@ export default function DetailedServices() {
     },
     {
       icon: "/icons/speedometer.webp",
-      title: "NBN Internet Setup Sydney",
+      title: "NBN Internet Setup",
       description:
         "Professional NBN and internet setup services in Sydney. Get connected with fast, reliable internet for your home or business with expert installation:",
       features: [
@@ -133,7 +132,7 @@ export default function DetailedServices() {
     },
     {
       icon: "/icons/social-media.webp",
-      title: "Email Setup and Support Sydney",
+      title: "Email Setup and Support",
       description:
         "Professional email setup and management services in Sydney. Get your email working perfectly across all devices with our expert email solutions:",
       features: [
@@ -147,7 +146,7 @@ export default function DetailedServices() {
     },
     {
       icon: "/icons/tv-smart-home.webp",
-      title: "Smart TV and Home Automation Sydney",
+      title: "Smart TV and Home Automation",
       description:
         "Professional smart TV and home automation services in Sydney. Transform your home with connected devices and smart technology solutions:",
       features: [
@@ -161,7 +160,7 @@ export default function DetailedServices() {
     },
     {
       icon: "/icons/website.webp",
-      title: "Website Design and Development Sydney",
+      title: "Website Design and Development",
       description:
         "Professional website design and development services in Sydney. Build a powerful online presence with our custom web solutions and digital marketing:",
       features: [
@@ -200,82 +199,5 @@ export default function DetailedServices() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
-  return (
-    <section className="py-20 relative overflow-hidden">
-      {/* Background with gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-[#001f3d] to-black z-0"></div>
-
-      <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 reveal fade-bottom">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
-            Comprehensive <span className="text-[#f85c04]">I.T. Services</span> for Every Need
-          </h2>
-          <p className="text-gray-300 text-lg">
-            From Apple repairs to smart home setup, we provide expert technical support across all your devices and
-            systems in Sydney.
-          </p>
-        </div>
-
-        {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 max-w-8xl mx-auto">
-          {services.map((service, index) => (
-            <div
-              key={index}
-              className="bg-[#001f3d]/20 rounded-2xl p-6 border border-white/10 hover:border-[#f85c04]/50 transition-all duration-300 hover:transform hover:scale-105 reveal fade-bottom flex flex-col h-full"
-              style={{ transitionDelay: `${index * 100}ms` }}
-            >
-              <div className="flex-grow">
-                {/* Icon */}
-                <div className="mb-6 flex justify-center">
-                  <div className="bg-[#f85c04]/20 p-4 rounded-xl">
-                    <Image
-                      src={service.icon || "/placeholder.svg"}
-                      alt={service.title}
-                      width={48}
-                      height={48}
-                      className="w-12 h-12 object-contain"
-                    />
-                  </div>
-                </div>
-
-                {/* Title */}
-                <h3 className="text-xl font-bold text-white mb-4 text-center">{service.title}</h3>
-
-                {/* Description */}
-                <p className="text-gray-300 text-sm mb-4 leading-relaxed">{service.description}</p>
-
-                {/* Features List */}
-                <ul className="space-y-2">
-                  {service.features.map((feature, featureIndex) => (
-                    <li key={featureIndex} className="flex items-start gap-2">
-                      <div className="w-1.5 h-1.5 bg-[#f85c04] rounded-full mt-2 flex-shrink-0"></div>
-                      <span className="text-gray-400 text-sm">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Call to Action */}
-              <div className="mt-6 pt-4 border-t border-white/10">
-                <button className="w-full bg-gradient-to-r from-[#f85c04] to-[#ff7a1a] hover:from-[#f85c04]/90 hover:to-[#ff7a1a]/90 text-white py-2 px-4 rounded-lg transition-all duration-300 text-sm font-medium">
-                  Learn More
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* Bottom CTA */}
-        <div className="text-center mt-16 reveal fade-bottom max-w-4xl mx-auto">
-          <p className="text-gray-300 mb-6">
-            Need help with something not listed? We provide comprehensive I.T. support for all your technology needs.
-          </p>
-          <button className="bg-gradient-to-r from-[#f85c04] to-[#ff7a1a] hover:from-[#f85c04]/90 hover:to-[#ff7a1a]/90 text-white py-3 px-8 rounded-lg transition-all duration-300 font-medium">
-            Contact Us for Custom Solutions
-          </button>
-        </div>
-      </div>
-    </section>
-  )
+  return null
 }

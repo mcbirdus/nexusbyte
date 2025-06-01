@@ -40,7 +40,7 @@ export default function FooterHomeServices() {
             href="/services/home"
             className="flex items-center gap-2 text-[#f85c04] hover:underline transition-colors duration-300 mt-2"
           >
-            <span className="text-sm">View All Home Services</span>
+            <span className="text-sm">All Home Services</span>
             <ArrowRight size={16} />
           </Link>
         </li>

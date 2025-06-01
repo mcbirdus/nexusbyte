@@ -90,7 +90,7 @@ export default function Features() {
           {/* Right - Content */}
           <div className="reveal fade-left">
             <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
-              Why <span className="text-[#f85c04]">NexusByte</span> Is Sydney's Preferred I.T. Partner
+              Why <span className="text-[#f85c04]">NexusByte</span> Is Sydney's Preferred I.T Partner
             </h2>
 
             <p className="text-gray-300 mb-8">
@@ -103,10 +103,10 @@ export default function Features() {
               {/* Feature 1 */}
               <div className="bg-[#001f3d]/20 rounded-lg p-6 transform transition-transform duration-300 hover:translate-y-[-5px] border border-white/10">
                 <h3 className="text-xl font-semibold mb-3 flex items-center gap-2 text-white">
-                  <span className="text-[#f85c04]">01</span> Expert Technicians
+                  <span className="text-[#f85c04]">01</span> Expert Engineers
                 </h3>
                 <p className="text-gray-400">
-                  Our team consists of certified I.T. professionals with extensive experience in both business and
+                  Our team consists of certified I.T professionals with extensive experience in both business and
                   residential environments throughout Sydney.
                 </p>
               </div>
@@ -117,7 +117,7 @@ export default function Features() {
                   <span className="text-[#f85c04]">02</span> Customized Solutions
                 </h3>
                 <p className="text-gray-400">
-                  We design I.T. solutions specifically tailored to your unique requirements, ensuring optimal
+                  We design I.T solutions specifically tailored to your unique requirements, ensuring optimal
                   performance and scalability for your needs.
                 </p>
               </div>

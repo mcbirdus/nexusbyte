@@ -22,7 +22,7 @@ export default function DesktopNavigation({ toggleSubmenu }: DesktopNavigationPr
   }
 
   return (
-    <nav className="hidden lg:flex items-center space-x-8">
+    <nav className="hidden lg:flex items-center space-x-8 mr-8">
       <Link
         href="/"
         className={`text-${
@@ -52,7 +52,7 @@ export default function DesktopNavigation({ toggleSubmenu }: DesktopNavigationPr
                 pathname === "/services/business" ? "bg-gray-100 dark:bg-[#001f3d]/60 text-[#f85c04] font-medium" : ""
               }`}
             >
-              <span>Business I.T. Services</span>
+              <span>Business I.T Services</span>
             </Link>
             <Link
               href="/services/home"
@@ -60,7 +60,7 @@ export default function DesktopNavigation({ toggleSubmenu }: DesktopNavigationPr
                 pathname === "/services/home" ? "bg-gray-100 dark:bg-[#001f3d]/60 text-[#f85c04] font-medium" : ""
               }`}
             >
-              <span>Home I.T. Services</span>
+              <span>Home I.T Services</span>
             </Link>
           </div>
         </div>

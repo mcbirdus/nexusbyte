@@ -7,16 +7,16 @@ export default function Services() {
   const services = [
     {
       icon: Home,
-      title: "Residential I.T. Support",
+      title: "Residential I.T Support",
       description:
         "Comprehensive home technology support including device setup, home office setup, troubleshooting, and maintenance for all your personal devices.",
       features: ["Device Setup & Configuration", "Virus Removal", "Home Network Setup", "Data Backup Solutions"],
     },
     {
       icon: Building2,
-      title: "Business I.T. Support",
+      title: "Business I.T Support",
       description:
-        "Enterprise-grade I.T. solutions designed to keep your business running smoothly with minimal downtime and maximum efficiency.",
+        "Enterprise-grade I.T solutions designed to keep your business running smoothly with minimal downtime and maximum efficiency.",
       features: ["24/7 Monitoring", "Help Desk Support", "System Maintenance", "Cloud Migration"],
     },
     {
@@ -93,15 +93,15 @@ export default function Services() {
   }, [])
 
   return (
-    <section id="services" className="min-h-screen relative bg-[#030c1f]">
+    <section id="services" className="min-h-screen relative bg-gradient-to-r from-[#001f3d] to-[#030c1f]">
       <div className="relative max-w-full mx-auto p-4 sm:p-6 lg:p-8">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16 reveal fade-bottom">
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
-            Our Comprehensive <span className="text-[#f85c04]">I.T. Services</span>
+            Our Comprehensive <span className="text-[#f85c04]">I.T Services</span>
           </h2>
           <p className="text-gray-300">
-            We offer specialized I.T. solutions for both business and residential clients throughout Sydney and
+            We offer specialized I.T solutions for both business and residential clients throughout Sydney and
             surrounding areas. Our services are designed to keep you connected, secure, and operating efficiently.
           </p>
         </div>
@@ -118,7 +118,7 @@ export default function Services() {
             </div>
             <div className="p-6 md:p-8">
               <p className="text-white/80 mb-6">
-                Enterprise-grade I.T. solutions designed to enhance productivity, security, and reliability for
+                Enterprise-grade I.T solutions designed to enhance productivity, security, and reliability for
                 businesses of all sizes in Sydney.
               </p>
 
@@ -132,10 +132,10 @@ export default function Services() {
                   </div>
                   <div>
                     <h4 className="text-lg font-semibold mb-1 text-white group-hover:text-[#f85c04] transition-colors">
-                      Business I.T. Support
+                      Business I.T Support
                     </h4>
                     <p className="text-white/70 text-sm">
-                      Enterprise-grade I.T. solutions designed to keep your business running smoothly with minimal
+                      Enterprise-grade I.T solutions designed to keep your business running smoothly with minimal
                       downtime.
                     </p>
                   </div>
@@ -197,7 +197,7 @@ export default function Services() {
             </div>
             <div className="p-6 md:p-8">
               <p className="text-white/80 mb-6">
-                Residential I.T. solutions that provide secure, reliable, and fast connections for your home in Sydney
+                Residential I.T solutions that provide secure, reliable, and fast connections for your home in Sydney
                 and surrounding areas.
               </p>
 
@@ -211,7 +211,7 @@ export default function Services() {
                   </div>
                   <div>
                     <h4 className="text-lg font-semibold mb-1 text-white group-hover:text-[#f85c04] transition-colors">
-                      Residential I.T. Support
+                      Residential I.T Support
                     </h4>
                     <p className="text-white/70 text-sm">
                       Comprehensive home technology support including device setup, home office setup, troubleshooting,

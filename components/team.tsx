@@ -11,7 +11,7 @@ export default function Team() {
       role: "Sr. I.T Consultant",
       image: "/team/maia.png",
       description:
-        "Expert in enterprise I.T. solutions and strategic technology consulting for businesses across Sydney.",
+        "Expert in enterprise I.T solutions and strategic technology consulting for businesses across Sydney.",
       specialties: ["Enterprise Solutions", "Strategic Planning", "Technology Consulting"],
       experience: "6+ Years",
     },
@@ -27,7 +27,7 @@ export default function Team() {
       name: "Natalie Wagner",
       role: "Sr. Technical Support",
       image: "/team/natalie.png",
-      description: "Providing exceptional technical support and ensuring seamless I.T. operations for our clients.",
+      description: "Providing professional and exceptional technical support and ensuring seamless I.T operations for our clients.",
       specialties: ["Technical Support", "System Administration", "Client Relations"],
       experience: "3+ Years",
     },
@@ -78,7 +78,7 @@ export default function Team() {
             Meet Our <span className="text-[#f85c04]">Expert Team</span>
           </h2>
           <p className="text-gray-300 text-lg">
-            Our certified professionals bring years of experience and expertise to deliver exceptional I.T. solutions
+            Our certified professionals bring years of experience and expertise to deliver exceptional I.T solutions
             for businesses and homes across Sydney.
           </p>
         </div>
@@ -182,7 +182,7 @@ export default function Team() {
               Ready to Work with Our <span className="text-[#f85c04]">Expert Team</span>?
             </h3>
             <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
-              Our experienced professionals are ready to provide you with exceptional I.T. solutions tailored to your
+              Our experienced professionals are ready to provide you with exceptional I.T solutions tailored to your
               specific needs. Contact us today for a free consultation.
             </p>
             <button className="bg-gradient-to-r from-[#f85c04] to-[#ff7a1a] hover:from-[#f85c04]/90 hover:to-[#ff7a1a]/90 text-white py-3 px-8 rounded-lg transition-all duration-300 font-medium shadow-lg hover:shadow-xl">

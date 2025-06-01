@@ -2,7 +2,91 @@
 
 import Link from "next/link"
 import { ArrowRight, Shield, Wifi, Clock, CheckCircle } from "lucide-react"
-import { useEffect } from "react"
+import { useEffect, useState, useCallback } from "react"
+import Image from "next/image"
+
+// Image Slider Component
+function ImageSlider() {
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  const images = [
+    {
+      src: "/images/workspace-setup.jpg",
+      alt: "Professional IT workspace",
+    },
+    {
+      src: "/images/slider/tech-infrastructure.jpg",
+      alt: "Digital technology infrastructure",
+    },
+    {
+      src: "/images/slider/keyboard-closeup.jpg",
+      alt: "Professional keyboard setup",
+    },
+    {
+      src: "/images/slider/gaming-pc-interior.jpg",
+      alt: "High-performance computer build",
+    },
+    {
+      src: "/images/slider/modern-workspace.jpg",
+      alt: "Modern office workspace",
+    },
+    {
+      src: "/images/slider/apple-tech-abstract.jpg",
+      alt: "Modern technology solutions",
+    },
+    {
+      src: "/images/slider/coding-setup.jpg",
+      alt: "Software development environment",
+    },
+    {
+      src: "/images/slider/purple-workspace.jpg",
+      alt: "Creative workspace setup",
+    },
+  ]
+
+  const nextSlide = useCallback(() => {
+    setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1))
+  }, [images.length])
+
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1))
+  }
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextSlide()
+    }, 5000)
+
+    return () => clearInterval(interval)
+  }, [nextSlide])
+
+  return (
+    <div className="relative rounded-2xl overflow-hidden shadow-2xl transform transition-transform duration-700 hover:scale-105">
+      {/* Main Image */}
+      <div className="relative h-[300px] sm:h-[400px]">
+        {images.map((image, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 transition-opacity duration-1000 ${
+              index === currentIndex ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <Image
+              src={image.src || "/placeholder.svg"}
+              alt={image.alt}
+              fill
+              className="object-cover"
+              priority={index === 0}
+              quality={85}
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#001f3d]/80 to-transparent"></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
 
 export default function Hero() {
   // Since we don't have a theme context, we'll default to dark theme
@@ -38,45 +122,38 @@ export default function Hero() {
       ></div>
 
       {/* Animated background blobs - Theme-aware */}
-      <div
-        className={`absolute top-20 left-20 w-64 h-64 rounded-full ${
-          theme === "light" ? "bg-[#f85c04]/10" : "bg-[#f85c04]/20"
-        } blob z-0`}
-      ></div>
-      <div
-        className={`absolute bottom-20 right-20 w-80 h-80 rounded-full ${
-          theme === "light" ? "bg-[#001f3d]/20" : "bg-[#001f3d]/30"
-        } blob z-0`}
-        style={{ animationDelay: "-10s" }}
-      ></div>
 
       <div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           {/* Hero Content */}
           <div className="lg:col-span-7">
             <div className={`space-y-6 ${theme === "light" ? "text-gray-800" : "text-white"}`}>
-              <h5 className="inline-block px-4 py-1 bg-[#f85c04]/20 border border-[#f85c04]/30 rounded-full text-[#f85c04]">
-                Sydney's Premier I.T. Services
-              </h5>
+              <div className="text-left">
+                <h5 className="inline-block px-4 py-1 bg-[#f85c04]/20 border border-[#f85c04]/30 rounded-full text-[#f85c04]">
+                  Sydney's Premier I.T Services
+                </h5>
+              </div>
 
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight hero-element">
-                Premium <span className="text-[#f85c04]">I.T. Services</span> for Sydney
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight hero-element text-left">
+                Premium <span className="text-[#f85c04]">I.T Services</span> for Sydney
               </h1>
 
-              <p className={`text-lg ${theme === "light" ? "text-gray-600" : "text-gray-300"} max-w-2xl hero-element`}>
-                Leading technology solutions provider delivering exceptional residential and business I.T. support,
+              <p
+                className={`text-lg ${theme === "light" ? "text-gray-600" : "text-gray-300"} max-w-2xl hero-element text-left`}
+              >
+                Leading technology solutions provider delivering exceptional residential and business I.T support,
                 software development, and cybersecurity services across Sydney and surrounding areas.
               </p>
 
               {/* Features */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+              <div className="grid grid-cols-2 gap-2 pt-2">
                 <div className="hero-sequential-item flex items-center gap-2 opacity-0 transform translate-y-4">
                   <CheckCircle size={20} className="text-[#f85c04]" />
-                  <span>Expert Technicians</span>
+                  <span>Expert Engineers</span>
                 </div>
                 <div className="hero-sequential-item flex items-center gap-2 opacity-0 transform translate-y-4">
                   <CheckCircle size={20} className="text-[#f85c04]" />
-                  <span>24/7 Support Available</span>
+                  <span>24/7 Support</span>
                 </div>
                 <div className="hero-sequential-item flex items-center gap-2 opacity-0 transform translate-y-4">
                   <CheckCircle size={20} className="text-[#f85c04]" />
@@ -99,7 +176,7 @@ export default function Hero() {
                 </Link>
                 <Link
                   href="#services"
-                  className="border-2 border-[#f85c04] bg-[#f85c04]/10 backdrop-blur-sm text-[#f85c04] hover:bg-[#f85c04] hover:text-white px-6 py-3 rounded-lg transition-all duration-300"
+                  className="border-2 border-white/20 bg-white/10 backdrop-blur-sm text-white hover:bg-white hover:text-[#001f3d] px-6 py-3 rounded-lg transition-all duration-300 text-center"
                 >
                   View Services
                 </Link>
@@ -107,8 +184,8 @@ export default function Hero() {
             </div>
           </div>
 
-          {/* Card */}
-          <div className="lg:col-span-5 hero-element">
+          {/* Card for Desktop */}
+          <div className="lg:col-span-5 hero-element hidden lg:block">
             <div
               className={`${
                 theme === "light"
@@ -170,6 +247,13 @@ export default function Hero() {
                   Explore Services →
                 </Link>
               </div>
+            </div>
+          </div>
+
+          {/* Image Slider for Mobile and Tablet */}
+          <div className="lg:col-span-5 hero-element block lg:hidden">
+            <div className="relative">
+              <ImageSlider />
             </div>
           </div>
         </div>

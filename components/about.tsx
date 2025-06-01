@@ -49,7 +49,7 @@ export default function About() {
             Why Choose <span className="text-[#f85c04]">NexusByte</span>?
           </h2>
           <p className="text-gray-300 text-lg">
-            As Sydney's premier I.T. services provider, NexusByte combines cutting-edge technology expertise with
+            As Sydney's premier I.T services provider, NexusByte combines cutting-edge technology expertise with
             personalized service to deliver exceptional results for our clients.
           </p>
         </div>
@@ -131,10 +131,8 @@ export default function About() {
                     "Bondi",
                     "Manly",
                     "Sutherland",
-                    "Blacktown",
                     "Penrith",
                     "Campbelltown",
-                    "Rockdale",
                     "Liverpool",
                     "Bankstown",
                     "Hornsby",
@@ -142,34 +140,18 @@ export default function About() {
                     "Randwick",
                     "Burwood",
                     "Hurstville",
-                    "Kogarah",
                     "Miranda",
                     "Caringbah",
                     "Engadine",
-                    "Menai",
-                    "Baulkham Hills",
                     "Castle Hill",
-                    "Rouse Hill",
-                    "Windsor",
+                    "Rouse Hill"
                     "Richmond",
                     "Blacktown",
                     "Mount Druitt",
-                    "St Marys",
                     "Emu Plains",
-                    "Katoomba",
-                    "Leura",
-                    "Springwood",
-                    "Penrith",
                     "Glenmore Park",
                     "Kingswood",
-                    "Werrington",
-                    "Cambridge Park",
-                    "Cranebrook",
-                    "Leonay",
                     "Emu Heights",
-                    "Jamisontown",
-                    "Regentville",
-                    "Orchard Hills",
                   ].map((area, index) => (
                     <div
                       key={index}

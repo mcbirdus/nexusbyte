@@ -107,7 +107,7 @@ export default function MobileMenu({
                   isServiceActive("/services/business") ? "text-[#f85c04] font-semibold" : "text-white"
                 } hover:bg-white/10 rounded-lg transition-colors duration-300 text-lg relative`}
               >
-                Business I.T. Services
+                Business I.T Services
               </Link>
               <Link
                 href="/services/home"
@@ -116,7 +116,7 @@ export default function MobileMenu({
                   isServiceActive("/services/home") ? "text-[#f85c04] font-semibold" : "text-white"
                 } hover:bg-white/10 rounded-lg transition-colors duration-300 text-lg relative`}
               >
-                Home I.T. Services
+                Home I.T Services
               </Link>
             </div>
           )}

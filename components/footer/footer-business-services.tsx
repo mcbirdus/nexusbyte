@@ -40,7 +40,7 @@ export default function FooterBusinessServices() {
             href="/services/business"
             className="flex items-center gap-2 text-[#f85c04] hover:underline transition-colors duration-300 mt-2"
           >
-            <span className="text-sm">View All Business Services</span>
+            <span className="text-sm">All Business Services</span>
             <ArrowRight size={16} />
           </Link>
         </li>

@@ -2,27 +2,20 @@
 
 import { createClient } from "@supabase/supabase-js"
 
-// Create a type for the form data
-export type ConsultationFormData = {
-  firstName: string
-  lastName: string
+// Create a type for the newsletter data
+export type NewsletterFormData = {
   email: string
-  phone: string
-  address: string
-  service: string
-  message: string
 }
 
-export async function submitConsultation(formData: ConsultationFormData) {
+export async function submitNewsletter(formData: NewsletterFormData) {
   try {
     // Get environment variables
     const supabaseUrl = process.env.SUPABASE_URL
     const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
-    console.log("Environment check:", {
+    console.log("Newsletter subscription attempt:", {
       hasUrl: !!supabaseUrl,
       hasKey: !!supabaseServiceKey,
-      urlStart: supabaseUrl?.substring(0, 20),
     })
 
     // Validate environment variables
@@ -35,17 +28,10 @@ export async function submitConsultation(formData: ConsultationFormData) {
     }
 
     // Validate form data
-    if (
-      !formData.firstName?.trim() ||
-      !formData.lastName?.trim() ||
-      !formData.email?.trim() ||
-      !formData.phone?.trim() ||
-      !formData.address?.trim() ||
-      !formData.message?.trim()
-    ) {
+    if (!formData.email?.trim()) {
       return {
         success: false,
-        message: "Please fill in all required fields.",
+        message: "Please enter your email address.",
       }
     }
 
@@ -57,9 +43,9 @@ export async function submitConsultation(formData: ConsultationFormData) {
       },
     })
 
-    // Test the connection first - using a simple query instead of count(*)
+    // Test the connection first
     try {
-      const { error: testError } = await supabase.from("consultation_requests").select("id").limit(1)
+      const { error: testError } = await supabase.from("newsletter_subscriptions_nexusbyte").select("id").limit(1)
 
       if (testError) {
         console.error("Supabase connection test failed:", testError)
@@ -68,8 +54,8 @@ export async function submitConsultation(formData: ConsultationFormData) {
         if (testError.message?.includes("relation") && testError.message?.includes("does not exist")) {
           // Try to create the table
           try {
-            await createConsultationTable(supabase)
-            console.log("Created consultation_requests table")
+            await createNewsletterTable(supabase)
+            console.log("Created newsletter_subscriptions table")
           } catch (createError) {
             console.error("Failed to create table:", createError)
             return {
@@ -92,23 +78,31 @@ export async function submitConsultation(formData: ConsultationFormData) {
       }
     }
 
-    // Prepare the data for insertion
-    const insertData = {
-      first_name: formData.firstName.trim(),
-      last_name: formData.lastName.trim(),
-      email: formData.email.trim().toLowerCase(),
-      phone: formData.phone.trim(),
-      address: formData.address.trim(),
-      service_type: formData.service,
-      message: formData.message.trim(),
-      status: "new",
-      created_at: new Date().toISOString(),
+    // Check if email already exists
+    const { data: existingSubscription } = await supabase
+      .from("newsletter_subscriptions_nexusbyte")
+      .select("id")
+      .eq("email", formData.email.trim().toLowerCase())
+      .single()
+
+    if (existingSubscription) {
+      return {
+        success: false,
+        message: "This email is already subscribed to our newsletter.",
+      }
     }
 
-    console.log("Attempting to insert data:", { ...insertData, email: "***@***.***" })
+    // Prepare the data for insertion
+    const insertData = {
+      email: formData.email.trim().toLowerCase(),
+      status: "active",
+      subscribed_at: new Date().toISOString(),
+    }
+
+    console.log("Attempting to insert newsletter subscription")
 
     // Insert data into Supabase
-    const { data, error } = await supabase.from("consultation_requests").insert([insertData])
+    const { data, error } = await supabase.from("newsletter_subscriptions_nexusbyte").insert([insertData])
 
     if (error) {
       console.error("Supabase insert error:", error)
@@ -117,7 +111,7 @@ export async function submitConsultation(formData: ConsultationFormData) {
       if (error.message?.includes("duplicate key")) {
         return {
           success: false,
-          message: "A request with this email already exists.",
+          message: "This email is already subscribed to our newsletter.",
         }
       }
 
@@ -130,18 +124,18 @@ export async function submitConsultation(formData: ConsultationFormData) {
 
       return {
         success: false,
-        message: "Failed to save your request. Please try again.",
+        message: "Failed to subscribe. Please try again.",
       }
     }
 
-    console.log("Successfully inserted data")
+    console.log("Successfully subscribed to newsletter")
 
     return {
       success: true,
-      message: "Thank you! Your consultation request has been submitted successfully. We'll contact you soon.",
+      message: "Thank you! You've been successfully subscribed to our newsletter.",
     }
   } catch (error) {
-    console.error("Server action error:", error)
+    console.error("Newsletter subscription error:", error)
 
     // Handle different types of errors
     if (error instanceof Error) {
@@ -167,20 +161,15 @@ export async function submitConsultation(formData: ConsultationFormData) {
   }
 }
 
-// Helper function to create the consultation_requests table if it doesn't exist
-async function createConsultationTable(supabase: any) {
+// Helper function to create the newsletter_subscriptions table if it doesn't exist
+async function createNewsletterTable(supabase: any) {
   const query = `
-    CREATE TABLE IF NOT EXISTS consultation_requests (
+    CREATE TABLE IF NOT EXISTS newsletter_subscriptions_nexusbyte (
       id SERIAL PRIMARY KEY,
-      first_name VARCHAR(255) NOT NULL,
-      last_name VARCHAR(255) NOT NULL,
-      email VARCHAR(255) NOT NULL,
-      phone VARCHAR(255) NOT NULL,
-      address TEXT NOT NULL,
-      service_type VARCHAR(50) NOT NULL,
-      message TEXT NOT NULL,
-      status VARCHAR(50) DEFAULT 'new',
-      created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+      email VARCHAR(255) UNIQUE NOT NULL,
+      status VARCHAR(50) DEFAULT 'active',
+      subscribed_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+      unsubscribed_at TIMESTAMP WITH TIME ZONE NULL
     );
   `
 
