@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import Image from "next/image"
 import { submitNewsletter } from "@/actions/submit-newsletter"
+import Link from "next/link"
+import { ArrowRight } from "lucide-react"
 
 export default function FooterQuickLinks() {
   // Since we don't have a theme context, we'll default to dark theme
@@ -120,6 +122,20 @@ export default function FooterQuickLinks() {
             NexusByte recognizes Aboriginal and Torres Strait Islander peoples as the Traditional Custodians of the land
             and extends its respect to their Elders, both past and present.
           </p>
+        </div>
+        <div>
+          <h4 className="text-lg font-semibold mb-6 text-white">Quick Links</h4>
+          <ul className="space-y-3">
+            <li>
+              <Link
+                href="/sitemap.xml"
+                className="flex items-center gap-2 hover:text-[#f85c04] transition-colors duration-300 text-white"
+              >
+                <ArrowRight size={16} className="text-[#f85c04]" />
+                <span className="text-sm">Sitemap</span>
+              </Link>
+            </li>
+          </ul>
         </div>
       </div>
     </div>

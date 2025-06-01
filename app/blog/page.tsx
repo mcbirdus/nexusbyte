@@ -380,7 +380,7 @@ export default function BlogPage() {
                 Stay Updated with <span className="text-[#f85c04]">Tech Insights</span>
               </h3>
 
-              <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
+              <p className="text-gray-300 mb-6 max-w-2xl mx-auto">
                 Get the latest I.T. tips, industry news, and exclusive insights delivered straight to your inbox every
                 week.
               </p>
